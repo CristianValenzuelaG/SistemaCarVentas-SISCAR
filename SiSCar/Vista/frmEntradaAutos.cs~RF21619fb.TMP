@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using SiSCar.Modelo;
+
+namespace SiSCar.Vista
+{
+    public partial class frmEntradaAutos : Form
+    {
+        public static string id;
+        public frmEntradaAutos()
+        {
+            InitializeComponent();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Propietario nPropietario = new Propietario();
+            nPropietario.pNombre = txtNombre.Text;
+            nPropietario.pDireccion = txtDireccion.Text;
+            nPropietario.pTelefono = txtTelefono.Text;
+            nPropietario.pCorreo = txtEmail.Text;
+            nPropietario.pIfe = txtIne.Text;
+            nPropietario.pFoto = txtFotopro.Text;
+
+            Auto nAuto = new Auto();
+            nAuto.aMarca = txtMarca.Text;
+            nAuto.aModelo = txtModelo.Text;
+            nAuto.aAño =Convert.ToInt32( cmbAño.Text);
+            nAuto.aNSerie = Convert.ToInt32(txtNSerie.Text);
+            nAuto.aNPlaca = txtNPlaca.Text;
+            nAuto.aColor = txtColor.Text;
+            nAuto.aNacionalidad = txtNacionalida.Text;
+            nAuto.aComentario = txtObserva.Text;
+            nAuto.aPrecio = Convert.ToInt32(txtPrecio.Text);
+            nAuto.aFoto1 = txtFoto1.Text;
+            nAuto.aFoto2 = txtfoto2.Text;
+            nAuto.aFoto3 = txtFoto3.Text;
+            
+            
+
+            nPropietario.Guardar(nPropietario);
+            nAuto.propietarios = nPropietario;
+            nAuto.Guardar(nAuto);
+
+
+            this.Close();
+        }
+
+        private void btnFotoPropie_Click(object sender, EventArgs e)
+        {
+            if (txtNombre.Text.Trim() != "")
+            {
+                id = txtNombre.Text.Trim();
+                frmFoto f1 = new frmFoto();
+                f1.ShowDialog();
+                txtFotopro.Text = f1.foto;
+            }
+        }
+
+        private void txtFoto1_TextChanged(object sender, EventArgs e)
+        {
+            if (txtFoto1.Text.Trim() != "")
+            {
+                picAuto1.ImageLocation = @"C:\foto\" + txtFoto1.Text.Trim();
+            }
+        }
+
+        private void txtfoto2_TextChanged(object sender, EventArgs e)
+        {
+            if (txtfoto2.Text.Trim() != "")
+            {
+                picAuto2.ImageLocation = @"C:\foto\" + txtfoto2.Text.Trim();
+            }
+        }
+
+        private void txtFoto3_TextChanged(object sender, EventArgs e)
+        {
+            if (txtFoto3.Text.Trim() != "")
+            {
+                picAuto3.ImageLocation = @"C:\foto\" + txtFoto3.Text.Trim();
+            }
+        }
+
+
+        private void btnFotoAuto_Click(object sender, EventArgs e)
+        {
+
+            if (txtNPlaca.Text.Trim() != "")
+            {
+                frmFotoCarro f1 = new frmFotoCarro();
+                id = txtNPlaca.Text.Trim() + "fa1";
+                f1.ShowDialog();
+                txtFoto1.Text = f1.foto1;
+
+            }
+        }
+
+        private void btnf2_Click(object sender, EventArgs e)
+        {
+            if (txtNPlaca.Text.Trim() != "")
+            {
+                    frmFotoCarro f1 = new frmFotoCarro();
+                    id = txtNPlaca.Text.Trim() + "fa2";
+                    f1.ShowDialog();
+                txtfoto2.Text = f1.foto1;
+
+            }
+        }
+
+        private void btnf3_Click(object sender, EventArgs e)
+        {
+            if (txtNPlaca.Text.Trim() != "")
+            {
+                frmFotoCarro f1 = new frmFotoCarro();
+                id = txtNPlaca.Text.Trim() + "fa3";
+                f1.ShowDialog();
+                txtFoto3.Text = f1.foto1;
+            }
+        }
+
+        private void txtFotopro_TextChanged(object sender, EventArgs e)
+        {
+            if (txtFotopro.Text.Trim() != "")
+            {
+                picPropie.ImageLocation = @"C:\foto\" + txtFotopro.Text.Trim();
+            }
+        }
+    }
+}

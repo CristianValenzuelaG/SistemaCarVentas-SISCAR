@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using SiSCar.Controlador;
+using SiSCar.Vista;
+
+namespace SiSCar
+{
+    public partial class frmPrincipal : Form
+    {
+        //public static SessionHelper SessionActiva;
+        //public void procesarPermisos()
+        //{
+        //    int permiso = 0;
+        //    foreach (object obj in this.Controls)
+        //    {
+        //        if (obj is Button)
+        //        {
+        //            Button btn = (Button)obj;
+        //            permiso = Convert.ToInt32(btn.Tag);
+        //            btn.Enabled = SessionActiva.tienePermiso(permiso);
+        //        }
+        //    }
+        //}
+        public frmPrincipal()
+        {
+            InitializeComponent();
+            //SessionActiva = new SessionHelper();
+        }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            //if (!frmPrincipal.SessionActiva.isVald)
+            //{
+            //    frmLogin vent = new frmLogin();
+            //    vent.ShowDialog();
+            //}
+
+        }
+
+        private void frmPrincipal_Activated(object sender, EventArgs e)
+        {
+            //procesarPermisos();
+        }
+
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
+            frmMainVenta nu = new frmMainVenta();
+            nu.Show();
+        }
+    }
+}

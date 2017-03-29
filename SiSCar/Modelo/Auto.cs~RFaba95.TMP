@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SiSCar.Modelo
+{
+    [Table("Autos")]
+    class Auto
+    {
+        #region Codigo de clase
+
+        
+        
+        [Key]
+        public int pkAuto { get; set; }
+
+        [Required(ErrorMessage = "Marca Requerida")]
+        [StringLength(100)]
+        public string aMarca { get; set; }
+
+        [Required(ErrorMessage = "Modelo Requerido")]
+        [StringLength(50)]
+        public string aModelo { get; set; }
+
+        public  int aAño { get; set; }
+
+        public int aNSerie { get; set; }
+
+        [Required(ErrorMessage = "Placa Requerida")]
+        [StringLength(20)]
+        public string aNPlaca { get; set; }
+
+        [Required(ErrorMessage = "Color Requerida")]
+        [StringLength(20)]
+        public string aColor { get; set; }
+
+        [Required(ErrorMessage = "Nacionalidad Requerida")]
+        [StringLength(50)]
+        public string aNacionalidad { get; set; }
+
+        [StringLength(100)]
+        public string aComentario { get; set; }
+
+        public decimal aPrecio { get; set; }
+
+        [Required(ErrorMessage = "Foto1 Requerida")]
+        [StringLength(100)]
+        public string aFoto1 { get; set; }
+
+        [Required(ErrorMessage = "Foto2 Requerida")]
+        [StringLength(100)]
+        public string aFoto2 { get; set; }
+
+        [Required(ErrorMessage = "Foto3 Requerida")]
+        [StringLength(100)]
+        public string aFoto3 { get; set; }
+
+        public Boolean aStatus { get; set; }
+
+        public virtual ICollection<Venta> ventas{ get; set; }
+        #endregion
+
+        public static List<Auto> BuscarPorMarca(string valorBuscar, Boolean sStatus)
+        {
+            try
+            {
+                using (var ctx = new DataModel())
+                {
+                    return ctx.autos.Where(r => r.aMarca.Contains(valorBuscar) && r.aStatus == sStatus).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+    }
+}

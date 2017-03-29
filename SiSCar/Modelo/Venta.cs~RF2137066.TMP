@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SiSCar.Modelo
+{
+    [Table("Ventas")]
+    class Venta
+    {
+        #region Datos BD
+        [Key]
+        public int pkVenta { get; set; }
+        public DateTime vFecha { get; set; }
+        public int vTotal { get; set; }
+
+
+        public int? comprador_fk { get; set; }
+        public virtual Comprador comprador { get; set; }
+        public virtual Auto auto { get; set; }
+        #endregion
+
+        public static List<Venta> BuscarporFecha(int pkVenta)
+        {
+            try
+            {
+                using (var ctx = new DataModel())
+                {
+                    return ctx.ventas.Where(r => r.pkVenta == pkVenta).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+    }
+}

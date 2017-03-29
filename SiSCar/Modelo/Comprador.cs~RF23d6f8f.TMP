@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SiSCar.Modelo
+{
+    [Table("Compradores")]
+    class Comprador
+    {
+        [Key]
+        public int pkComprador { get; set; }
+
+        [Required(ErrorMessage = "Nombre Requerido")]
+        [StringLength(100)]
+        public string cNombre { get; set; }
+
+        [Required(ErrorMessage = "Direccion Requerida")]
+        [StringLength(100)]
+        public string cDireccion { get; set; }
+
+        [Required(ErrorMessage = "Ciudad Requerida")]
+        [StringLength(100)]
+        public string cCiudad { get; set; }
+
+        public Boolean cStatus { get; set; }
+
+        public virtual ICollection<Venta> ventas { get; set; }
+        public Comprador()
+        {
+            this.cStatus = true;
+        }
+        public void Guardar(Comprador nComprador, TipoOperacion Toperacion, int pkAuto , int total )
+        {
+            try
+            {
+                using (var ctx = new DataModel())
+                {
+                    if (nComprador.pkComprador > 0)
+                    {
+                        ctx.Entry(nComprador).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        ctx.Entry(nComprador).State = EntityState.Added;
+                    }
+                    ctx.SaveChanges();
+                    if (Toperacion == TipoOperacion.NUEVO)
+                    {
+                        //TODO: REGISTRARLO EN EL GRUPO SELECCIONADO 
+                        SiSCar.Modelo.Venta.RegistraNuevaVenta(nComprador.pkComprador, pkAuto , total);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+    }
+    public enum TipoOperacion
+    {
+        NUEVO,
+        ACTUALIZA
+    }
+}

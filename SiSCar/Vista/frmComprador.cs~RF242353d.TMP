@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using SiSCar.Modelo;
+
+namespace SiSCar.Vista
+{
+    public static int iD_Buscar_Propietario = 0;
+    public static int iD_Buscar_Carro = 0;
+    List<Propietario> nLista_Propietario = new List<Propietario>();
+    List<Auto> nLista_Auto = new List<Auto>();
+    public partial class frmComprador : Form
+    {
+        public frmComprador()
+        {
+            InitializeComponent();
+        }
+    }
+}
